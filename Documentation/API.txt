@@ -1,0 +1,82 @@
+Добавить информацию о выпитом напитке
+
+POST /drink?drink_type={drink-type}&drink_volume={drink-volume}
+&access_token={access-token}
+
+drink_type - тип напитка 
+drink_volume - объем в миллилитрах 
+
+Пример запроса:
+POST /drink?drink_type=dry_white&drink_volume=200
+&access_token=123456
+
+
+
+Получить статистику выпитого
+
+GET /statistics?period={period-of-time}&access_token={access-token}
+
+period - период времени, за который необходима информация 
+
+Пример запроса:
+GET /statistics?period=week&access_token=123456
+
+Формат ответа:
+{
+	"drinks": [{
+		"type": "lager",
+		"volume": 1000
+	}, {
+		"type": "dry_white",
+		"volume": 600
+	}, {
+		"type": "whiskey",
+		"volume": 300
+	}]
+}
+
+
+
+Получить рекомендации по напиткам
+
+GET /recommendation?dishes={first-dish,second-dish,third-dish}
+&access_token={access-token}
+
+dishes - оцениваемые блюда через запятую
+
+Пример запроса:
+GET /recommendation?dishes=fish,white,freshwater
+&access_token=123456
+
+Формат ответа:
+{
+	"drinks": [{
+		"description": "Description",
+		"maxPrice": 600,
+		"minPrice": 500,
+		"name": "Sant’Orsola",
+		"type": "Пино Гриджио"
+		"picture": "http://example.com/photo/123"
+	}, {
+		"description": "Another description",
+		"maxPrice": 1800,
+		"minPrice": 1600,
+		"name": "Sibaris",
+		"photo": "Undurraga"
+		"picture": "http://example.com/photo/321"
+	}]
+}
+
+
+
+Коды ответов:
+
+200 OK - успешный запрос
+401 UNAUTHORIZED - ошибка  аутентификации
+400 BAD REQUEST - ошибка в синтаксисе запроса
+
+
+
+Допустимые значения параметров
+
+Будет позже
