@@ -20,7 +20,7 @@ public class AuthenticationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         logger = Logger.getLogger(AuthenticationFilter.class);
-        logger.info("Init AuthenticationFilter");
+        logger.info("Initialized AuthenticationFilter");
     }
 
     @Override
@@ -32,18 +32,16 @@ public class AuthenticationFilter implements Filter {
         String token = httpRequest.getParameter("access_token");
 
         if (token == null || !authenticator.validate(token)) {
-            httpResponse.sendError(401);
-        } 
- 
-        else {
-            httpRequest.setAttribute("email", authenticator.getUserEMail());
+            httpResponse.sendError(401, "Authentication has failed or has not yet been provided");
+        } else {
+            httpRequest.setAttribute("userID", authenticator.getUserID(token));
             chain.doFilter(request, response);
         }
     }
 
     @Override
     public void destroy() {
-        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // do nothing
     }
 
 }
