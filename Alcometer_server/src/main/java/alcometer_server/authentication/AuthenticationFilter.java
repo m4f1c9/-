@@ -20,7 +20,7 @@ public class AuthenticationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         logger = Logger.getLogger(AuthenticationFilter.class);
-        logger.info("Initialized AuthenticationFilter");
+        logger.debug("Initialized AuthenticationFilter");
     }
 
     @Override
@@ -30,9 +30,9 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         String token = httpRequest.getParameter("access_token");
-
         if (token == null || !authenticator.validate(token)) {
-            httpResponse.sendError(401, "Authentication has failed or has not yet been provided");
+            logger.debug("incorrect access token - " + token);
+            httpResponse.sendError(401, "Authentication has failed");
         } else {
             httpRequest.setAttribute("userID", authenticator.getUserID(token));
             chain.doFilter(request, response);
