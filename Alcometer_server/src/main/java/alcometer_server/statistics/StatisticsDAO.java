@@ -1,12 +1,9 @@
 package alcometer_server.statistics;
 
+import alcometer_server.util.exceptions.DAOExceptions;
+
 public interface StatisticsDAO {
 
-    public Statistic forDay(String id);
+    public Statistic getStatistic(String userID, String period) throws DAOExceptions;
 
-    public Statistic forWeek(String id);
-
-    public Statistic forMonth(String id);
-
-    public Statistic forYear(String id);
 }

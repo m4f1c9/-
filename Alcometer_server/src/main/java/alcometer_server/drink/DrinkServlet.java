@@ -1,45 +1,39 @@
-package alcometer_server.statistics;
+package alcometer_server.drink;
 
+import alcometer_server.statistics.StatisticsServlet;
 import alcometer_server.util.Mocks;
 import alcometer_server.util.exceptions.DAOExceptions;
-import com.alibaba.fastjson.JSON;
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
-public class StatisticsServlet extends HttpServlet {
+public class DrinkServlet extends HttpServlet {
 
     Logger logger;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String userID = (String) request.getAttribute("userID");
-        String period = request.getParameter("period");
+        String drinkType = request.getParameter("drink_type");
+        String drinkVolume = request.getParameter("drink_volume");
 
         try {
-            StatisticsDAO dao = Mocks.createStatisticsDAO();
-            Statistic statistic = dao.getStatistic(userID, period);
-            String answer = JSON.toJSONString(statistic);
-
-            response.setStatus(200);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(answer);
-
+            DrinkDAO dao = Mocks.getDrinkDAO();
+            dao.recordDrunk(drinkType, drinkVolume, userID);
         } catch (DAOExceptions e) {
-            response.sendError(400, "Incorrect period");
-            logger.debug("Incorrect period - " + period);            
+            response.sendError(400, "Incorrect request");
+            logger.debug("Incorrect request: userID - " + userID + " drinkType " + drinkType + " " + " " + drinkVolume);
         }
+
     }
 
     @Override
     public void init() throws ServletException {
-        logger = Logger.getLogger(StatisticsServlet.class);
-        logger.debug("Initialized StatisticsServlet");
+        logger = Logger.getLogger(DrinkServlet.class);
+        logger.debug("Initialized DrinkServlet");
     }
 
     @Override

@@ -7,7 +7,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import org.apache.log4j.PropertyConfigurator;
 
-@WebListener("log4j context listener")
+@WebListener
 public class Log4jContextListener implements ServletContextListener {
 
     /**

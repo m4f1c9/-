@@ -1,4 +1,3 @@
-
 package alcometer_server.recommendation;
 
 import java.util.Objects;
@@ -8,8 +7,8 @@ public class DrinkInfo {
     String type;
     String name;
     String description;
-    int minPrice;
-    int maxPrice;
+    Integer minPrice; //optional parameter   null == no value
+    Integer maxPrice; //optional parameter   null == no value
 
     public String getType() {
         return type;
@@ -23,11 +22,11 @@ public class DrinkInfo {
         return description;
     }
 
-    public int getMinPrice() {
+    public Integer getMinPrice() {
         return minPrice;
     }
 
-    public int getMaxPrice() {
+    public Integer getMaxPrice() {
         return maxPrice;
     }
 
@@ -53,12 +52,12 @@ public class DrinkInfo {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.type);
-        hash = 97 * hash + Objects.hashCode(this.name);
-        hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + this.minPrice;
-        hash = 97 * hash + this.maxPrice;
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.type);
+        hash = 37 * hash + Objects.hashCode(this.name);
+        hash = 37 * hash + Objects.hashCode(this.description);
+        hash = 37 * hash + Objects.hashCode(this.minPrice);
+        hash = 37 * hash + Objects.hashCode(this.maxPrice);
         return hash;
     }
 
@@ -74,12 +73,6 @@ public class DrinkInfo {
             return false;
         }
         final DrinkInfo other = (DrinkInfo) obj;
-        if (this.minPrice != other.minPrice) {
-            return false;
-        }
-        if (this.maxPrice != other.maxPrice) {
-            return false;
-        }
         if (!Objects.equals(this.type, other.type)) {
             return false;
         }
@@ -89,8 +82,13 @@ public class DrinkInfo {
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
+        if (!Objects.equals(this.minPrice, other.minPrice)) {
+            return false;
+        }
+        if (!Objects.equals(this.maxPrice, other.maxPrice)) {
+            return false;
+        }
         return true;
     }
-    
-    
+
 }

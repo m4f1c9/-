@@ -8,10 +8,30 @@
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
     <context-param>
         <param-name>log4j-config-location</param-name>
         <param-value>WEB-INF/log4j.properties</param-value>
     </context-param>
+    
+     <context-param>
+        <param-name>user</param-name>
+        <param-value>root</param-value>
+    </context-param>
+     <context-param>
+        <param-name>password</param-name>
+        <param-value>passforroot</param-value>
+    </context-param>
+     <context-param>
+        <param-name>url</param-name>
+        <param-value>jdbc:mysql://127.0.0.1:3306/alcometer</param-value>
+    </context-param>
+    
+    
+    
+    
+    
+    
     <servlet>
         <servlet-name>statistics</servlet-name>
         <servlet-class>alcometer_server.statistics.StatisticsServlet</servlet-class>
@@ -19,6 +39,10 @@
     <servlet>
         <servlet-name>recommendation</servlet-name>
         <servlet-class>alcometer_server.recommendation.RecommendationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>drink</servlet-name>
+        <servlet-class>alcometer_server.drink.DrinkServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>statistics</servlet-name>
@@ -28,9 +52,17 @@
         <servlet-name>recommendation</servlet-name>
         <url-pattern>/recommendation</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>drink</servlet-name>
+        <url-pattern>/drink</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    
+
+
+
 </web-app>
