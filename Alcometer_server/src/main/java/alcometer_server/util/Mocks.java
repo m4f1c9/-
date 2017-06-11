@@ -46,18 +46,15 @@ public final class Mocks {
         drinks.add(new DrinkInfo() {
             {
                 setDescription("Description");
-               // setMaxPrice(600);
-               // setMinPrice(500);
-                setName("Sant’Orsola");
+                // setMaxPrice(600);
+                // setMinPrice(500);
                 setType("Пино Гриджио");
             }
         });
         drinks.add(new DrinkInfo() {
             {
                 setDescription("Description");
-                setMaxPrice(1800);
-                setMinPrice(1600);
-                setName("Sibaris");
+
                 setType("Undurraga");
             }
         });

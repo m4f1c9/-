@@ -4,20 +4,21 @@ use alcometer;
 
 
 create table dishes(
-	dishes_id int primary key,
+	dishes_id int primary key auto_increment,
     first_dish varchar(128),
     second_dish varchar(128),
     third_dish varchar(128));
     
     
 create table drinks(
-	drinks_id varchar(8) primary key,
+	drinks_id varchar(8) primary key auto_increment,
     type varchar(24),
     description varchar(2048));
     
 create table drinks_dishes(
 	dishes_id int,
     drinks_id varchar(8),
+    primary key (dishes_id, drinks_id),
     foreign key (dishes_id) references dishes (dishes_id),
 	foreign key (drinks_id) references drinks (drinks_id));
     

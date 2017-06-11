@@ -20,8 +20,9 @@ public class RecommendationServlet extends HttpServlet {
         String dishes = request.getParameter("dishes");
 
         try {
-            RecommendationDAO dao = new MySQLRecommendationDAO();
+            RecommendationDAO dao = new JPARecommendationDAO();
             Recommendation recomendation = dao.getRecommendation(dishes);
+            
             String answer = JSON.toJSONString(recomendation);
 
             response.setStatus(200);
