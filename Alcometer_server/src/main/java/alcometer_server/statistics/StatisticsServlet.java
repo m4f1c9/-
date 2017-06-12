@@ -21,7 +21,7 @@ public class StatisticsServlet extends HttpServlet {
         String period = request.getParameter("period");
 
         try {
-            StatisticsDAO dao = Mocks.createStatisticsDAO();
+            StatisticsDAO dao = new JPAStatisticsDAO();
             Statistic statistic = dao.getStatistic(userID, period);
             String answer = JSON.toJSONString(statistic);
 

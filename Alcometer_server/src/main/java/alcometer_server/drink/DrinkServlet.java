@@ -21,8 +21,9 @@ public class DrinkServlet extends HttpServlet {
         String drinkVolume = request.getParameter("drink_volume");
 
         try {
-            DrinkDAO dao = Mocks.getDrinkDAO();
+            DrinkDAO dao = new JPADrinkDAO();
             dao.recordDrunk(drinkType, drinkVolume, userID);
+            response.setStatus(200);
         } catch (DAOExceptions e) {
             response.sendError(400, "Incorrect request");
             logger.debug("Incorrect request: userID - " + userID + " drinkType " + drinkType + " " + " " + drinkVolume);

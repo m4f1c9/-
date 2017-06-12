@@ -4,14 +4,14 @@ use alcometer;
 
 
 create table dishes(
-	dishes_id int primary key auto_increment,
+	dishes_id int primary key,
     first_dish varchar(128),
     second_dish varchar(128),
     third_dish varchar(128));
     
     
 create table drinks(
-	drinks_id varchar(8) primary key auto_increment,
+	drinks_id varchar(8) primary key,
     type varchar(24),
     description varchar(2048));
     
@@ -23,8 +23,22 @@ create table drinks_dishes(
 	foreign key (drinks_id) references drinks (drinks_id));
     
     
+create table users(
+	user_id varchar(24) primary key);
+    
+create table history(
+	history_id int primary key auto_increment,
+    volume int,
+	user_id varchar(24),
+    type varchar(24),
+    date datetime,
+    foreign key (user_id) references users (user_id));
+
     
     
+insert into users values
+	('abc'),
+    ('qwe');
     
     
 insert into dishes values
@@ -174,7 +188,7 @@ insert into drinks_dishes values
     (9,'КСЛ'),
     (10,'КСН'),
     (10,'КСЛ'),
-    (10,'КСН'),
+   -- (10,'КСН'),
     (10,'КД'),
     (11,'КСН'),
     (11,'КД'),

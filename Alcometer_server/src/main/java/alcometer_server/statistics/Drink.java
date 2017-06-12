@@ -5,15 +5,8 @@ import java.util.Objects;
 public class Drink {
 
     private String type;
+
     private int volume;
-
-    public Drink(String type, int volume) {
-        this.type = type;
-        this.volume = volume;
-    }
-
-    public Drink() {
-    }
 
     public String getType() {
         return type;
@@ -31,11 +24,12 @@ public class Drink {
         this.volume = volume;
     }
 
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.type);
-        hash = 97 * hash + this.volume;
+        int hash = 5;
+        hash = 23 * hash + Objects.hashCode(this.type);
+        hash = 23 * hash + this.volume;
         return hash;
     }
 
@@ -59,6 +53,5 @@ public class Drink {
         }
         return true;
     }
-    
-    
+
 }
