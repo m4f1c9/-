@@ -1,10 +1,8 @@
 package alcometer_server.recommendation;
 
-import alcometer_server.util.Mocks;
 import alcometer_server.util.exceptions.DAOExceptions;
 import com.alibaba.fastjson.JSON;
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +19,7 @@ public class RecommendationServlet extends HttpServlet {
 
         try {
             RecommendationDAO dao = new JPARecommendationDAO();
-            Recommendation recomendation = dao.getRecommendation(dishes);
+            Dishes recomendation = dao.getRecommendation(dishes);
             
             String answer = JSON.toJSONString(recomendation);
 
@@ -31,11 +29,11 @@ public class RecommendationServlet extends HttpServlet {
             response.getWriter().write(answer);
 
         } catch (DAOExceptions e) {
-            response.sendError(400, "Incorrect dishes");
+            response.sendError(400, e.getMessage());
             logger.debug("Incorrect dishes - " + dishes);
-        } catch (SQLException e) {
+        } catch (Throwable e) {
             response.sendError(500);
-            logger.debug("SQLException - " + e);
+            logger.error(e);
         }
 
     }
@@ -43,7 +41,6 @@ public class RecommendationServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         logger = Logger.getLogger(RecommendationServlet.class);
-        logger.debug("Initialized RecommendationServlet");
     }
 
     @Override

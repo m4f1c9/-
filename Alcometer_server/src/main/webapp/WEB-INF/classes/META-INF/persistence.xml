@@ -6,15 +6,12 @@
     <!-- Entity classes -->
     
     <class>alcometer_server.recommendation.Dishes</class>
-    <class>alcometer_server.recommendation.DrinkInfo</class>
+    <class>alcometer_server.recommendation.Drinks</class>
     
     
     <properties>
-      <!-- The JDBC URL to the database instance -->
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/alcometer"/>
-      <!-- The database username -->
       <property name="javax.persistence.jdbc.user" value="root"/>
-      <!-- The database password -->
       <property name="javax.persistence.jdbc.password" value="passforroot"/>
     </properties>
   </persistence-unit>

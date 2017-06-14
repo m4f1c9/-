@@ -1,6 +1,6 @@
 package alcometer_server.statistics;
 
-import alcometer_server.util.Mocks;
+
 import alcometer_server.util.exceptions.DAOExceptions;
 import com.alibaba.fastjson.JSON;
 import java.io.IOException;
@@ -31,15 +31,14 @@ public class StatisticsServlet extends HttpServlet {
             response.getWriter().write(answer);
 
         } catch (DAOExceptions e) {
-            response.sendError(400, "Incorrect period");
-            logger.debug("Incorrect period - " + period);            
+            response.sendError(400, e.getMessage());
+            logger.debug(e);            
         }
     }
 
     @Override
     public void init() throws ServletException {
         logger = Logger.getLogger(StatisticsServlet.class);
-        logger.debug("Initialized StatisticsServlet");
     }
 
     @Override

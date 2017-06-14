@@ -5,27 +5,27 @@ import java.util.Set;
 
 public class Statistic {
 
-    private Set<Drink> Drinks;
+    private Set<Drink> drinks;
 
     public Statistic() {
     }
 
     public Statistic(Set<Drink> Drinks) {
-        this.Drinks = Drinks;
+        this.drinks = Drinks;
     }
 
     public Set<Drink> getDrinks() {
-        return Drinks;
+        return drinks;
     }
 
     public void setDrinks(Set<Drink> drinks) {
-        this.Drinks = drinks;
+        this.drinks = drinks;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + Objects.hashCode(this.Drinks);
+        hash = 47 * hash + Objects.hashCode(this.drinks);
         return hash;
     }
 
@@ -41,7 +41,7 @@ public class Statistic {
             return false;
         }
         final Statistic other = (Statistic) obj;
-        if (!Objects.equals(this.Drinks, other.Drinks)) {
+        if (!Objects.equals(this.drinks, other.drinks)) {
             return false;
         }
         return true;

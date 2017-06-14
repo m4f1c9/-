@@ -1,26 +1,27 @@
 package alcometer_server.recommendation;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "drinks")
-public class DrinkInfo implements Serializable {
+public class Drinks implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "drinks_id")
-    String ID;
+    @JSONField(serialize = false)
+    private String ID;
+
     @Column(name = "type")
-    String type;
+    private String type;
+
     @Column(name = "description")
-    String description;
+    private String description;
 
     public String getID() {
         return ID;
@@ -66,7 +67,7 @@ public class DrinkInfo implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final DrinkInfo other = (DrinkInfo) obj;
+        final Drinks other = (Drinks) obj;
         if (!Objects.equals(this.ID, other.ID)) {
             return false;
         }

@@ -1,5 +1,6 @@
 package alcometer_server.recommendation;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,8 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -20,37 +19,43 @@ import javax.persistence.Table;
 public class Dishes implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dishes_id")
+    @JSONField(serialize = false)
     private int ID;
-    
+
     @Column(name = "first_dish")
+    @JSONField(serialize = false)
     private String firstDish;
-    
+
     @Column(name = "second_dish")
+    @JSONField(serialize = false)
     private String secondDish;
-    
+
     @Column(name = "third_dish")
+    @JSONField(serialize = false)
     private String thirdDish;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinTable(name = "drinks_dishes", joinColumns = @JoinColumn(name = "dishes_id"), 
+    @JoinTable(name = "drinks_dishes", joinColumns = @JoinColumn(name = "dishes_id"),
             inverseJoinColumns = @JoinColumn(name = "drinks_id"))
-    private Set<DrinkInfo> drinks = new HashSet<>();
-    
-    
+    private Set<Drinks> drinks = new HashSet<>();
+
+    @JSONField(serialize = false)
     public int getDishesID() {
         return ID;
     }
-
+    
+    @JSONField(serialize = false)
     public String getFirstDish() {
         return firstDish;
     }
-
+    
+    @JSONField(serialize = false)
     public String getSecondDish() {
         return secondDish;
     }
-
+    
+    @JSONField(serialize = false)
     public String getThirdDish() {
         return thirdDish;
     }
@@ -70,14 +75,13 @@ public class Dishes implements Serializable {
     public void setThirdDish(String thirdDish) {
         this.thirdDish = thirdDish;
     }
-
-    public Set<DrinkInfo> getDrinks() {
+ 
+    public Set<Drinks> getDrinks() {
         return drinks;
     }
 
-    public void setDrinks(Set<DrinkInfo> drinks) {
+    public void setDrinks(Set<Drinks> drinks) {
         this.drinks = drinks;
     }
 
-    
 }

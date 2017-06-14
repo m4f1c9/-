@@ -14,10 +14,11 @@ public class JPAStatisticsDAO implements StatisticsDAO {
 
     @Override
     public Statistic getStatistic(String userID, String period) throws DAOExceptions {
+
         Statistic statistic = null;
         EntityManager manager = null;
         try {
-            manager = HibernateContextListener.getEntityManagerFactory().createEntityManager();
+            manager = HibernateContextListener.createEntityManager();
 
             Query query = manager.createQuery("SELECT e FROM History e where e.userID = :userID and e.date > :date", History.class);
             query.setParameter("date", getDate(period));
@@ -25,17 +26,19 @@ public class JPAStatisticsDAO implements StatisticsDAO {
 
             manager.getTransaction().begin();
             List<History> list = query.getResultList();
-            statistic = new Statistic(new HashSet<Drink>(){
+            statistic = new Statistic(new HashSet<Drink>() {
                 {
                     add(createDrink("wine", list));
                     add(createDrink("strong_alcohol", list));
                     add(createDrink("beer", list));
                 }
             });
-            
+
             manager.getTransaction().commit();
         } finally {
-            manager.close();
+            if (manager != null) {
+                manager.close();
+            }
         }
         return statistic;
     }
@@ -43,13 +46,11 @@ public class JPAStatisticsDAO implements StatisticsDAO {
     private Date getDate(String period) throws DAOExceptions {
         Calendar calendar = new GregorianCalendar();
         if (period == null) {
-            throw new DAOExceptions();
+            throw new DAOExceptions("Period missing");
         } else if (period.equals("day")) {
             calendar.add(Calendar.HOUR_OF_DAY, -24);
         } else if (period.equals("week")) {
             calendar.add(Calendar.HOUR_OF_DAY, -168);
-        } else if (period.equals("day")) {
-            calendar.add(Calendar.HOUR_OF_DAY, -24);
         } else if (period.equals("month")) {
             calendar.add(Calendar.MONTH, -1);
         } else if (period.equals("year")) {
@@ -57,7 +58,7 @@ public class JPAStatisticsDAO implements StatisticsDAO {
         } else if (period.equals("full")) {
             calendar.add(Calendar.ERA, -1);
         } else {
-            throw new DAOExceptions();
+            throw new DAOExceptions("Incorrect period");
         }
 
         return calendar.getTime();
@@ -70,11 +71,7 @@ public class JPAStatisticsDAO implements StatisticsDAO {
             return value.getVolume();
         }).reduce(Integer::sum).orElse(0);
 
-        return new Drink() {
-            {
-                setType(type);
-                setVolume(sum);
-            }
-        };
+        return new Drink(type, sum);
     }
+
 }

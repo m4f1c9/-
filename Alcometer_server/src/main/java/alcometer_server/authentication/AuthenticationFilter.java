@@ -1,6 +1,6 @@
 package alcometer_server.authentication;
 
-import alcometer_server.util.Mocks;
+import alcometer_server.util.AuthenticatorMock;
 import alcometer_server.util.exceptions.AuthenticationExceptions;
 import java.io.IOException;
 
@@ -17,11 +17,10 @@ import org.apache.log4j.Logger;
 public class AuthenticationFilter implements Filter {
 
     Logger logger;
- 
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         logger = Logger.getLogger(AuthenticationFilter.class);
-        logger.debug("Initialized AuthenticationFilter");
     }
 
     @Override
@@ -31,15 +30,18 @@ public class AuthenticationFilter implements Filter {
         String token = httpRequest.getParameter("access_token");
 
         try {
-            Authenticator authenticator = Mocks.createAuthenticator();
+            Authenticator authenticator = new AuthenticatorMock();
             String userID = authenticator.getUserID(token);
             httpRequest.setAttribute("userID", userID);
             logger.debug("correct access token - " + token + " userID " + userID);
             chain.doFilter(request, response);
 
         } catch (AuthenticationExceptions e) {
-            logger.debug("incorrect access token - " + token);
-            httpResponse.sendError(401, "Authentication has failed");
+            httpResponse.sendError(401, e.getMessage());
+            logger.debug(e);
+        } catch (Throwable e) {
+            httpResponse.sendError(500);
+            logger.error(e);
         }
     }
 

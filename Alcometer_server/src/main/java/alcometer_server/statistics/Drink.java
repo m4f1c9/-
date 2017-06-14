@@ -8,6 +8,14 @@ public class Drink {
 
     private int volume;
 
+    public Drink(String type, int volume) {
+        this.type = type;
+        this.volume = volume;
+    }
+
+    public Drink() {
+    }
+
     public String getType() {
         return type;
     }
@@ -23,7 +31,6 @@ public class Drink {
     public void setVolume(int volume) {
         this.volume = volume;
     }
-
 
     @Override
     public int hashCode() {

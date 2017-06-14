@@ -1,2 +1,4 @@
 /Alcometer_server/target/
 /Documentation/~$API.docx
+/Documentation/~$*.*
+/Alcometer_server/*.log

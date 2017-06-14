@@ -1,7 +1,5 @@
 package alcometer_server.drink;
 
-import alcometer_server.statistics.StatisticsServlet;
-import alcometer_server.util.Mocks;
 import alcometer_server.util.exceptions.DAOExceptions;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -25,8 +23,11 @@ public class DrinkServlet extends HttpServlet {
             dao.recordDrunk(drinkType, drinkVolume, userID);
             response.setStatus(200);
         } catch (DAOExceptions e) {
-            response.sendError(400, "Incorrect request");
-            logger.debug("Incorrect request: userID - " + userID + " drinkType " + drinkType + " " + " " + drinkVolume);
+            response.sendError(400, e.getMessage());
+            logger.debug(e);
+        } catch (Throwable e) {
+            response.sendError(500);
+            logger.error(e);
         }
 
     }
@@ -34,7 +35,6 @@ public class DrinkServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         logger = Logger.getLogger(DrinkServlet.class);
-        logger.debug("Initialized DrinkServlet");
     }
 
     @Override
