@@ -27,7 +27,7 @@ public class JPADrinkDAO implements DrinkDAO {
         }
         
         try {
-            manager = HibernateContextListener.getEntityManagerFactory().createEntityManager();
+            manager = HibernateContextListener.createEntityManager();
 
             History drink = new History();
             drink.setType(drinkType);

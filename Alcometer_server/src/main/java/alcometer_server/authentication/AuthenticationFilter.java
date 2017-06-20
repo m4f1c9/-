@@ -33,7 +33,8 @@ public class AuthenticationFilter implements Filter {
             Authenticator authenticator = new AuthenticatorMock();
             String userID = authenticator.getUserID(token);
             httpRequest.setAttribute("userID", userID);
-            logger.debug("correct access token - " + token + " userID " + userID);
+            
+            logger.debug(token + userID);
             chain.doFilter(request, response);
 
         } catch (AuthenticationExceptions e) {

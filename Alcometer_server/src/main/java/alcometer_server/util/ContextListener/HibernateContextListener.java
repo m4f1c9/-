@@ -9,6 +9,9 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+    /**
+     * Initialize Hibernate when the application is being started
+     */
 @WebListener
 public class HibernateContextListener implements ServletContextListener {
 
