@@ -32,7 +32,8 @@ public class AuthenticationFilter implements Filter {
             Authenticator authenticator = new GoogleAuthenticator(token);
             String userID = authenticator.getUserID();
             httpRequest.setAttribute("userID", userID);
-            logger.debug("correct access token - " + token + " userID " + userID);
+            
+            logger.debug(token + userID);
             chain.doFilter(request, response);
 
         } catch (AuthenticationExceptions e) {

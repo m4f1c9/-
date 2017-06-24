@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
+
+    /**
+     * Map to http://host:port/statistics
+     */
 public class StatisticsServlet extends HttpServlet {
 
     Logger logger;

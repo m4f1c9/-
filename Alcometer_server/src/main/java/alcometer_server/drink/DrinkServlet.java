@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
+    /**
+     * Map to http://host:port/drink
+     */
 public class DrinkServlet extends HttpServlet {
 
     Logger logger;

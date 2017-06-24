@@ -20,7 +20,9 @@ public class JPAStatisticsDAO implements StatisticsDAO {
         try {
             manager = HibernateContextListener.createEntityManager();
 
-            Query query = manager.createQuery("SELECT e FROM History e where e.userID = :userID and e.date > :date", History.class);
+            String requestqueryStr = "SELECT e FROM History e " + 
+                    "where e.userID = :userID and e.date > :date";
+            Query query = manager.createQuery(requestqueryStr, History.class);
             query.setParameter("date", getDate(period));
             query.setParameter("userID", userID);
 
