@@ -23,22 +23,22 @@ create table drinks_dishes(
 	foreign key (drinks_id) references drinks (drinks_id));
     
     
-create table users(
-	user_id varchar(24) primary key);
+-- create table users(
+	-- user_id varchar(24) primary key);
     
 create table history(
 	history_id int primary key auto_increment,
     volume int,
 	user_id varchar(24),
     type varchar(24),
-    date datetime,
-    foreign key (user_id) references users (user_id));
+    date datetime);
+    -- foreign key (user_id) references users (user_id));
 
     
     
-insert into users values
-	('abc'),
-    ('qwe');
+-- insert into users values
+-- 	('abc'),
+--     ('qwe');
     
     
 insert into dishes values

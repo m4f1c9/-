@@ -4,5 +4,5 @@ import alcometer_server.util.exceptions.AuthenticationExceptions;
 
 public interface Authenticator {
 
-    public String getUserID(String token) throws AuthenticationExceptions;
+    public String getUserID() throws AuthenticationExceptions;
 }

@@ -1,6 +1,5 @@
 package alcometer_server.authentication;
 
-import alcometer_server.util.AuthenticatorMock;
 import alcometer_server.util.exceptions.AuthenticationExceptions;
 import java.io.IOException;
 
@@ -30,14 +29,14 @@ public class AuthenticationFilter implements Filter {
         String token = httpRequest.getParameter("access_token");
 
         try {
-            Authenticator authenticator = new AuthenticatorMock();
-            String userID = authenticator.getUserID(token);
+            Authenticator authenticator = new GoogleAuthenticator(token);
+            String userID = authenticator.getUserID();
             httpRequest.setAttribute("userID", userID);
             logger.debug("correct access token - " + token + " userID " + userID);
             chain.doFilter(request, response);
 
         } catch (AuthenticationExceptions e) {
-            httpResponse.sendError(401, e.getMessage());
+            httpResponse.sendError(401);
             logger.debug(e);
         } catch (Throwable e) {
             httpResponse.sendError(500);
